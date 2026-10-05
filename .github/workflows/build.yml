@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: find . -name "*.zip" -exec unzip -q -o {} \;
+      - run: for f in $(find . -name "*.zip"); do unzip -l "$f" | grep -q settings.gradle.kts && unzip -q -o "$f"; done; test -f AppControl/settings.gradle.kts
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
